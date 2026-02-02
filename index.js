@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
 
-const dbHost = process.env.DBHOST ?? 'localhost';
+const dbHost = process.env.DBHOST ?? "localhost";
 const postgresDB = process.env.POSTGRES_DB;
 const postgresUser = process.env.POSTGRES_USER;
 const postgresPassword = process.env.POSTGRES_PASSWORD
@@ -11,11 +11,11 @@ const postgresPassword = process.env.POSTGRES_PASSWORD
 const sequelize = new Sequelize(postgresDB, postgresUser, postgresPassword, {
     host: dbHost,
     port: 5432,
-    dialect: 'postgres',
+    dialect: "postgres",
     logging: false, 
   });
 
-const User = sequelize.define('User', {
+const User = sequelize.define("User", {
         name: DataTypes.STRING,
         mail: DataTypes.STRING,
     });
@@ -38,11 +38,11 @@ app.post("/api/users", async (req,res) => {
 
 sequelize.sync()
   .then(() => {
-    console.log("Tablas sincronizadas correctamente.");
+    console.log("Database synchronized successfully.");
     app.listen(3000, () => {
       console.log("Server is running on port 3000");
     });
   })
   .catch(err => {
-    console.error("Error al sincronizar la base de datos:", err);
+    console.error("Error synchronizing the database:", err);
   });
